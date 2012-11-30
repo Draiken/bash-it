@@ -1,8 +1,9 @@
 SCM_THEME_PROMPT_PREFIX=""
 SCM_THEME_PROMPT_SUFFIX=""
-
 SCM_THEME_PROMPT_DIRTY=" ${bold_red}✗${normal}"
 SCM_THEME_PROMPT_CLEAN=" ${bold_green}✓${normal}"
+RVM_THEME_PROMPT_PREFIX=""
+RVM_THEME_PROMPT_SUFFIX=""
 SCM_GIT_CHAR="${bold_green}±${normal}"
 SCM_SVN_CHAR="${bold_cyan}⑆${normal}"
 SCM_HG_CHAR="${bold_red}☿${normal}"
@@ -21,7 +22,7 @@ PS3=">> "
 is_vim_shell() {
 	if [ ! -z "$VIMRUNTIME" ]
 	then
-		echo "[ ${cyan}vim shell${normal} ]"
+		echo " [vim]"
 	fi
 }
 
@@ -32,12 +33,12 @@ modern_scm_prompt() {
 		return
 	else
 		#echo "[ $(scm_char) ][ $(scm_prompt_info) ]"
-		echo "[ $(scm_prompt_info) ]"
+		echo " on branch ${bold_blue}$(scm_prompt_info)${normal}"
 	fi
 }
 
 rvm_status() {
-  echo "[ ${purple}$(ruby_version_prompt)${normal} ]"
+  echo " using ${green}$(ruby_version_prompt)${normal}"
 }
 
 prompt() {
@@ -46,15 +47,16 @@ prompt() {
 		# Yes, the indenting on these is weird, but it has to be like
 		# this otherwise it won't display properly.
 
-    PS1="${TITLEBAR}${bold_red}┌─$(rvm_status)${reset_color} $(modern_scm_prompt) [ ${cyan}\w${normal} ] $(is_vim_shell)
-${bold_red}└─▪${normal} "
+    PS1="${TITLEBAR}${yellow}\w${normal}$(is_vim_shell)$(modern_scm_prompt)$(rvm_status)
+${cyan}∞${normal} "
 	else
-		PS1="${TITLEBAR}┌─$(rvm_status) $(modern_scm_prompt) [ ${cyan}\w${normal} ] $(is_vim_shell)
-└─▪ "
+    PS1="${TITLEBAR}${yellow}\w${normal}$(is_vim_shell)$(modern_scm_prompt)$(rvm_status)
+${cyan}∞${normal} "
 	fi
 }
 
-PS2="└─▪ "
+#PS2="└─▪ "
+PS2="∞ "
 
 
 
