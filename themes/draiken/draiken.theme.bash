@@ -33,26 +33,20 @@ modern_scm_prompt() {
 		return
 	else
 		#echo "[ $(scm_char) ][ $(scm_prompt_info) ]"
-		echo " on branch ${bold_blue}$(scm_prompt_info)${normal}"
+		echo " on ${blue}$(scm_prompt_info)${normal}"
 	fi
 }
 
 rvm_status() {
-  echo " using ${green}$(ruby_version_prompt)${normal}"
+  echo " using ${cyan}$(ruby_version_prompt)${normal}"
 }
 
 prompt() {
-	if [ $? -ne 0 ]
-	then
-		# Yes, the indenting on these is weird, but it has to be like
-		# this otherwise it won't display properly.
-
-    PS1="${TITLEBAR}${yellow}\w${normal}$(is_vim_shell)$(modern_scm_prompt)$(rvm_status)
+  PSL="${TITLEBAR}${bold_blue}\w${normal}"
+  PSR="$(is_vim_shell)$(modern_scm_prompt)$(rvm_status)"
+  PSL1="$PSL                   $PSR"
+  PS1="$PSL1
 ${cyan}∞${normal} "
-	else
-    PS1="${TITLEBAR}${yellow}\w${normal}$(is_vim_shell)$(modern_scm_prompt)$(rvm_status)
-${cyan}∞${normal} "
-	fi
 }
 
 #PS2="└─▪ "
